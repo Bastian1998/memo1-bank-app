@@ -1,6 +1,9 @@
 package com.aninfo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Account {
@@ -10,6 +13,9 @@ public class Account {
     private Long cbu;
 
     private Double balance;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
+    private List<Transaction> transactions;
 
     public Account(){
     }
@@ -30,7 +36,8 @@ public class Account {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+
+       public void setBalance(Double balance) {
         this.balance = balance;
     }
 
